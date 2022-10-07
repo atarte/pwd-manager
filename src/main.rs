@@ -1,10 +1,8 @@
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-// use user_creation::display_user_creation;
 
 mod panel;
 mod app_data;
-mod json_conv;
 
 // // enum AppState {
 //     UserSelection(panel::user_selection::UserSelection),
@@ -16,17 +14,8 @@ mod json_conv;
 fn main() {
     let options = eframe::NativeOptions::default();
 
-    let json = panel::user_selection::UserSelection::new();
-    println!("{:?}", json);
-
-    panel::export_json("./user_list.json", &json);
-    println!("exported");
-
-    let test = panel::import_json::<panel::user_selection::UserSelection>("./user_list.json");
-    println!("{:?}", test);
-    
     eframe::run_native(
-        "Login", 
+        "Pwd Manager", 
         options, 
         Box::new(|_cc| Box::new(app_data::AppData::default())),
     );

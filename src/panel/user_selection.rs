@@ -13,20 +13,17 @@ use super::Init;
 //
 // use super::Json;
 
-const FILE_PATH: &str = "./user_list.json";
+pub const USER_LIST_PATH: &str = "./user_list.json";
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserSelection {
-    // user_list: Vec<String>,
-    user: String,
-    nb: u32,
+    user_list: Vec<String>,
 }
 
 impl Init for UserSelection {
     fn init() -> Self {
         Self {
-            user: "tset".to_owned(),
-            nb: 12,
+            user_list: vec!(),
         }
     }
 }
@@ -47,13 +44,11 @@ impl Init for UserSelection {
 // }
 
 impl UserSelection {
-    pub fn new() -> Self {
-        Self {
-            // user_list: vec!(),
-            user: "tset".to_owned(),
-            nb: 12,
-        }
-    }
+    // pub fn new() -> Self {
+    //     Self {
+    //         user_list: vec!(),
+    //     }
+    // }
 }
 //
 // pub fn display_user_selection(ctx: &eframe::egui::Context, app: &mut App) {

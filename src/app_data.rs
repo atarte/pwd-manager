@@ -1,7 +1,5 @@
-// use crate::panel::user_selection::U;
-//
-// use crate::json_conv;
-use crate::panel::user_selection::UserSelection;
+use crate::panel::user_selection::{UserSelection, USER_LIST_PATH};
+use crate::panel::{export_json, import_json};
 
 // #[derive(Debug)]
 pub struct AppData {
@@ -15,9 +13,30 @@ enum AppState {
     Main,
 }
 
+impl Default for AppData {
+    fn default() -> Self {
+        let user_list: UserSelection = import_json(USER_LIST_PATH);
+        Self {
+            state: AppState::UserSelection(user_list),
+        }
+    }
+}
+
 impl AppData {
+    pub fn switch_panel<E>(&mut self, new_state: &E) {
+        match &self.state {
+            AppState::UserSelection(data) => {
+                export_json(USER_LIST_PATH, &data)
+            },
+            _ => todo!(),
+        }
+
+        // self.state = E;
+    }
+
     pub fn switch_to_user_selection(&mut self) {
         println!("user selection");
+        // export_json(USER_LIST_PATH, );
         // json_conv::export_json("test");
         // self.state = AppState::UserSelection(_)
     }
@@ -35,17 +54,6 @@ impl AppData {
     pub fn switch_to_main(&mut self) {
         println!("main");
         self.state = AppState::Main
-    }
-}
-
-impl Default for AppData {
-    fn default() -> Self {
-        let user_list: UserSelection = UserSelection::new();
-
-        Self {
-            state: AppState::UserSelection(user_list),
-            // state: AppState::UserSelection(user_selection::load_user_list()),
-        }
     }
 }
 
