@@ -3,65 +3,76 @@
 // use user_creation::display_user_creation;
 
 mod panel;
+mod app_data;
+mod json_conv;
 
-enum AppState {
-    UserSelection(panel::user_selection::UserSelection),
-    UserCreation,
-    Login,
-    Main,
-}
+// // enum AppState {
+//     UserSelection(panel::user_selection::UserSelection),
+//     UserCreation,
+//     Login,
+//     Main,
+// }
 
 fn main() {
     let options = eframe::NativeOptions::default();
+
+    let json = panel::user_selection::UserSelection::new();
+    println!("{:?}", json);
+
+    panel::export_json("./user_list.json", &json);
+    println!("exported");
+
+    let test = panel::import_json::<panel::user_selection::UserSelection>("./user_list.json");
+    println!("{:?}", test);
     
     eframe::run_native(
         "Login", 
         options, 
-        Box::new(|_cc| Box::new(App::default())),
+        Box::new(|_cc| Box::new(app_data::AppData::default())),
     );
 }
 
-pub struct App {
-    state: AppState,
-}
-
-impl App {
-    pub fn switch_to_user_selection(&mut self) {
-        println!("user selection");
-        // self.state = AppState::UserSelection(_)
-    }
-
-    pub fn switch_to_user_creation(&mut self) {
-        println!("user creation");
-        self.state = AppState::UserCreation
-    }
-
-    pub fn switch_to_login(&mut self) {
-        println!("login");
-        self.state = AppState::Login
-    }
-
-    pub fn switch_to_main(&mut self) {
-        println!("main");
-        self.state = AppState::Main
-    }
-}
-
-impl Default for App {
-    fn default() -> Self {
-        Self {
-            state: AppState::UserSelection(panel::user_selection::load_user_list()),
-        }
-    }
-}
-
-impl eframe::App for App {
-    fn update(&mut self, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
-        // match self.state {
-        //     AppState::UserSelection => panel::user_selection::display_user_selection(ctx, self),
-        //     AppState::UserCreation => panel::user_creation::display_user_creation(ctx, self),
-        //     AppState::Login => todo!(),
-        //     AppState::Main => todo!(),
-        // }
-    }
-}
+// pub struct App {
+//     state: AppState,
+// }
+//
+// impl App {
+//     pub fn switch_to_user_selection(&mut self) {
+//         println!("user selection");
+//         // self.state = AppState::UserSelection(_)
+//     }
+//
+//     pub fn switch_to_user_creation(&mut self) {
+//         println!("user creation");
+//         self.state = AppState::UserCreation
+//     }
+//
+//     pub fn switch_to_login(&mut self) {
+//         println!("login");
+//         self.state = AppState::Login
+//     }
+//
+//     pub fn switch_to_main(&mut self) {
+//         println!("main");
+//         self.state = AppState::Main
+//     }
+// }
+//
+// impl Default for App {
+//     fn default() -> Self {
+//         Self {
+//             state: AppState::UserSelection(panel::user_selection::load_user_list()),
+//         }
+//     }
+// }
+//
+// impl eframe::App for App {
+//     fn update(&mut self, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
+//         // match self.state {
+//         //     AppState::UserSelection => panel::user_selection::display_user_selection(ctx, self),
+//         //     AppState::UserCreation => panel::user_creation::display_user_creation(ctx, self),
+//         //     AppState::Login => todo!(),
+//         //     AppState::Main => todo!(),
+//         // }
+//     }
+// }
