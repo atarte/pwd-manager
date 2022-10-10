@@ -1,4 +1,5 @@
-use crate::panel::user_selection::{UserSelection, USER_LIST_PATH};
+// use crate::panel::user_selection::{UserSelection, USER_LIST_PATH};
+use crate::panel::user_selection;
 use crate::panel::{export_json, import_json};
 
 // #[derive(Debug)]
@@ -7,7 +8,7 @@ pub struct AppData {
 }
 
 enum AppState {
-    UserSelection(UserSelection),
+    UserSelection(user_selection::UserSelection),
     UserCreation,
     Login,
     Main,
@@ -15,7 +16,7 @@ enum AppState {
 
 impl Default for AppData {
     fn default() -> Self {
-        let user_list: UserSelection = import_json(USER_LIST_PATH);
+        let user_list: user_selection::UserSelection = import_json(user_selection::USER_LIST_PATH);
         Self {
             state: AppState::UserSelection(user_list),
         }
@@ -23,17 +24,17 @@ impl Default for AppData {
 }
 
 impl AppData {
-    pub fn switch_panel<E>(&mut self, new_state: &E) {
-        match &self.state {
-            AppState::UserSelection(data) => {
-                export_json(USER_LIST_PATH, &data)
-            },
-            _ => todo!(),
-        }
-
-        // self.state = E;
-    }
-
+    // pub fn switch_panel<E>(&mut self, new_state: &E) {
+    //     match &self.state {
+    //         AppState::UserSelection(data) => {
+    //             export_json(USER_LIST_PATH, &data)
+    //         },
+    //         _ => todo!(),
+    //     }
+    //
+    //     // self.state = E;
+    // }
+    //
     pub fn switch_to_user_selection(&mut self) {
         println!("user selection");
         // export_json(USER_LIST_PATH, );
@@ -59,11 +60,12 @@ impl AppData {
 
 impl eframe::App for AppData {
     fn update(&mut self, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
-        // match self.state {
-        //     AppState::UserSelection => panel::user_selection::display_user_selection(ctx, self),
-        //     AppState::UserCreation => panel::user_creation::display_user_creation(ctx, self),
-        //     AppState::Login => todo!(),
-        //     AppState::Main => todo!(),
-        // }
+        match self.state {
+            AppState::UserSelection(_) => user_selection::display_user_selection(self, ctx, frame),
+            AppState::UserCreation => todo!(),
+            // AppState::UserCreation => panel::user_creation::display_user_creation(ctx, self),
+            AppState::Login => todo!(),
+            AppState::Main => todo!(),
+        }
     }
 }

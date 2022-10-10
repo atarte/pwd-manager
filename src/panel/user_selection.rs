@@ -1,17 +1,10 @@
 use std::{path::Path, fs::File};
 
-// use eframe::egui;
+use eframe::egui;
 use serde::{Deserialize, Serialize};
 
+use crate::app_data::AppData;
 use super::Init;
-//
-// use std::fs::File; 
-// use std::path::Path;
-// use std::io::Write;
-//
-// use crate::App;
-//
-// use super::Json;
 
 pub const USER_LIST_PATH: &str = "./user_list.json";
 
@@ -27,21 +20,6 @@ impl Init for UserSelection {
         }
     }
 }
-// impl Json for UserSelection {
-//     fn export_json(self: &UserSelection) {
-//         let file: File = File::create(FILE_PATH)
-//             .expect("cant create file");
-//
-//         serde_json::to_writer_pretty(&file, self)
-//             .expect("cant write date in file")
-//     }
-//     
-//     fn import_json() -> Self {
-//        if !Path::new(FILE_PATH).exists() {
-//            
-//        } 
-//     }
-// }
 
 impl UserSelection {
     // pub fn new() -> Self {
@@ -50,19 +28,19 @@ impl UserSelection {
     //     }
     // }
 }
-//
-// pub fn display_user_selection(ctx: &eframe::egui::Context, app: &mut App) {
-//     egui::CentralPanel::default().show(ctx, |ui| {
-//         ui.heading("selecting user");
-//        
-//         if ui.button("create_user").clicked() {
-//             // *state = AppState::UserCreation;
-//             app.switch_to_user_creation();
-//         }
-//         // if ui.bu
-//        
-//     });
-// }
+
+pub fn display_user_selection(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
+    egui::CentralPanel::default().show(ctx, |ui| {
+        ui.heading("selecting user");
+       
+        if ui.button("create_user").clicked() {
+            // *state = AppState::UserCreation;
+            app.switch_to_user_creation();
+        }
+        // if ui.bu
+       
+    });
+}
 //
 //
 // pub fn load_user_list() -> UserSelection {
