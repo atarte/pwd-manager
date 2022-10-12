@@ -15,7 +15,7 @@ enum AppState {
     UserSelection,
     UserCreation,
     Login,
-    Main,
+    Home,
 }
 
 impl Default for AppData {
@@ -47,25 +47,21 @@ impl AppData {
     }
 
     pub fn switch_to_user_selection(&mut self) {
-        // println!("user selection");
         self.state = AppState::UserSelection;
         self.users = import_json(user_selection::USER_LIST_PATH);
     }
 
     pub fn switch_to_user_creation(&mut self) {
-        // println!("user creation");
         self.state = AppState::UserCreation;
         self.new_user = user_creation::UserCreation::init();
     }
 
     pub fn switch_to_login(&mut self) {
-        // println!("login");
         self.state = AppState::Login
     }
 
-    pub fn switch_to_main(&mut self) {
-        // println!("main");
-        self.state = AppState::Main
+    pub fn switch_to_home(&mut self) {
+        self.state = AppState::Home
     }
 }
 
@@ -76,7 +72,7 @@ impl eframe::App for AppData {
             AppState::UserSelection => user_selection::display(self, ctx, frame),
             AppState::UserCreation => user_creation::display(self, ctx, frame),
             AppState::Login => todo!(),
-            AppState::Main => todo!(),
+            AppState::Home => todo!(),
         }
     }
 }

@@ -3,23 +3,25 @@ use eframe::egui;
 // use serde::{Deserialize, Serialize};
 
 use crate::app_data::AppData;
+use crate::models::user::User;
+
 use super::Init;
 
 // #[derive(Debug, Serialize, Deserialize)]
-#[derive(Debug)]
-pub struct UserCreation {
-    name: String,
-    pwd: String
-}
-
-impl Init for UserCreation {
-    fn init() -> Self {
-        Self {
-            name: String::new(),
-            pwd: String::new(),
-        }
-    }
-}
+// #[derive(Debug)]
+// pub struct UserCreation {
+//     name: String,
+//     pwd: String
+// }
+//
+// impl Init for UserCreation {
+//     fn init() -> Self {
+//         Self {
+//             name: String::new(),
+//             pwd: String::new(),
+//         }
+//     }
+// }
 
 pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
     egui::CentralPanel::default().show(ctx, |ui| {
@@ -41,5 +43,14 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
             ui.label("password: ");
             ui.text_edit_singleline(&mut new_user.pwd);
         });
+
+        if ui.button("Save").clicked() {
+            //sqve
+
+        }
     });
+}
+
+pub fn create_user() {
+
 }
