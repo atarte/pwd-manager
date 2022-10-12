@@ -1,8 +1,7 @@
-use crate::views::Init;
-// use crate::panel::user_selection::{UserSelection, USER_LIST_PATH};
+// use crate::panels:user_selection::{UserSelection, USER_LIST_PATH};
 use crate::views::user_selection;
 use crate::views::user_creation;
-use crate::views::{export_json, import_json};
+use crate::views::{Init, export_json, import_json};
 
 #[derive(Debug)]
 pub struct AppData {
@@ -36,14 +35,14 @@ impl AppData {
     pub fn get_users(&self) -> Result<&user_selection::UserSelection, String> {
         match self.state {
             AppState::UserSelection => Ok(&self.users),
-            _ => Err(format!("State 'UserSelection' expect, buts state '{:?}' encounter", self.state).to_string()),
+            _ => Err(format!("State 'UserSelection' expect, buts state '{:?}' encounter", self.state)),
         }
     }
 
     pub fn get_new_user(&mut self) -> Result<&mut user_creation::UserCreation, String> {
         match self.state {
             AppState::UserCreation => Ok(&mut self.new_user),
-            _ => Err(format!("State 'UserCreation' expect, buts state '{:?}' encounter", self.state).to_string()),
+            _ => Err(format!("State 'UserCreation' expect, buts state '{:?}' encounter", self.state)),
         }
     }
 
