@@ -1,7 +1,8 @@
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
 
-mod panel;
+mod views;
+mod models;
 mod app_data;
 
 // // enum AppState {

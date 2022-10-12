@@ -1,8 +1,8 @@
-use crate::panel::Init;
+use crate::views::Init;
 // use crate::panel::user_selection::{UserSelection, USER_LIST_PATH};
-use crate::panel::user_selection;
-use crate::panel::user_creation;
-use crate::panel::{export_json, import_json};
+use crate::views::user_selection;
+use crate::views::user_creation;
+use crate::views::{export_json, import_json};
 
 #[derive(Debug)]
 pub struct AppData {
