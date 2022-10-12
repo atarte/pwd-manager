@@ -15,7 +15,7 @@ impl Init for UsersList {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct User {
     pub name: String,
     pub password: String,
@@ -34,6 +34,7 @@ impl Init for User {
 }
 
 impl Copy for User {
+    
 }
 
 impl Clone for User {
