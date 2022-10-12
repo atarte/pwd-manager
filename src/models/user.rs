@@ -1,5 +1,20 @@
 use serde::{Deserialize, Serialize};
 
+use super::Init;
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct UsersList {
+    pub users: Vec<User>,
+}
+
+impl Init for UsersList {
+    fn new() -> Self {
+        Self {
+            users: Vec::new(),
+        }
+    }
+}
+
 #[derive(Debug, Deserialize, Serialize)]
 pub struct User {
     pub name: String,
@@ -9,8 +24,8 @@ pub struct User {
     // file path
 }
 
-impl User {
-    pub fn new() -> Self {
+impl Init for User {
+    fn new() -> Self {
         Self {
             name: String::new(),
             password: String::new(),

@@ -5,7 +5,7 @@ use eframe::egui;
 use crate::app_data::AppData;
 use crate::models::user::User;
 
-use super::Init;
+// use super::Init;
 
 // #[derive(Debug, Serialize, Deserialize)]
 // #[derive(Debug)]
@@ -32,7 +32,7 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
             return;
         }
 
-        let new_user: &mut UserCreation = app.get_new_user().unwrap();
+        let new_user: &mut User = app.get_new_user().unwrap();
 
         ui.horizontal(|ui| {
             ui.label("username: ");
@@ -41,7 +41,7 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
 
         ui.horizontal(|ui| {
             ui.label("password: ");
-            ui.text_edit_singleline(&mut new_user.pwd);
+            ui.text_edit_singleline(&mut new_user.password);
         });
 
         if ui.button("Save").clicked() {
