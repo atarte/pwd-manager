@@ -50,6 +50,10 @@ impl AppData {
         }
     }
 
+    pub fn add_user(&mut self) {
+        self.users_list.users.push(self.new_user)
+    }
+
     pub fn switch_to_user_selection(&mut self) {
         self.state = AppState::UserSelection;
         self.users_list = import_json(USERS_LIST_PATH);

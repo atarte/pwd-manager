@@ -51,6 +51,3 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
     });
 }
 
-pub fn create_user() {
-
-}

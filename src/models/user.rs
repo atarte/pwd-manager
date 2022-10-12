@@ -15,7 +15,7 @@ impl Init for UsersList {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug)]
 pub struct User {
     pub name: String,
     pub password: String,
@@ -30,5 +30,14 @@ impl Init for User {
             name: String::new(),
             password: String::new(),
         }
+    }
+}
+
+impl Copy for User {
+}
+
+impl Clone for User {
+    fn clone(&self) -> Self {
+        *self
     }
 }
