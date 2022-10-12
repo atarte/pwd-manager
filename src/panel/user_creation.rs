@@ -27,6 +27,7 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
 
         if ui.button("<- Back").clicked() {
             app.switch_to_user_selection();
+            return;
         }
 
         let new_user: &mut UserCreation = app.get_new_user().unwrap();

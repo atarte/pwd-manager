@@ -42,6 +42,7 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
          
         if ui.button("create_user").clicked() {
             app.switch_to_user_creation();
+            return;
         }
     });
 }
