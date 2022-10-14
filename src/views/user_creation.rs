@@ -40,8 +40,11 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
         });
 
         ui.horizontal(|ui| {
+            let mut pwd_string: String = String::new();
             ui.label("password: ");
-            ui.text_edit_singleline(&mut new_user.password);
+            ui.text_edit_singleline(&mut pwd_string);
+            
+            new_user.hash_password(pwd_string); 
         });
 
         if ui.button("Save").clicked() {

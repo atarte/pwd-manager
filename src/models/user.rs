@@ -1,3 +1,6 @@
+use std::collections::hash_map::DefaultHasher;
+use std::hash::{Hash, Hasher};
+
 use serde::{Deserialize, Serialize};
 
 use super::Init;
@@ -15,10 +18,10 @@ impl Init for UsersList {
     }
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Hash, Deserialize, Serialize)]
 pub struct User {
     pub name: String,
-    pub password: String,
+    pub password: u64,
     // type enum
     // key
     // file path
@@ -28,8 +31,15 @@ impl Init for User {
     fn new() -> Self {
         Self {
             name: String::new(),
-            password: String::new(),
+            password: 0u64,
         }
     }
 }
 
+impl User {
+    pub fn hash_password(&mut self, password_string: String) {
+        let mut hash = DefaultHasher::new();
+        password_string.hash(&mut hash);
+        self.password = hash.finish();
+    }
+}

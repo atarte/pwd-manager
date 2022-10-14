@@ -1,12 +1,3 @@
 {
-  "users": [
-    {
-      "name": "test",
-      "password": "test"
-    },
-    {
-      "name": "eeee",
-      "password": "eee"
-    }
-  ]
+  "users": []
 }
