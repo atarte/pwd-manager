@@ -5,7 +5,7 @@ use crate::models::{Init, export_json, import_json};
 use crate::models::user::{User, UsersList};
 
 
-const USERS_LIST_PATH: &str = "./users_list.json";
+const USERS_LIST_PATH: &str = "./data/users_list.json";
 
 #[derive(Debug)]
 pub struct AppData {
