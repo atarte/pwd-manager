@@ -45,8 +45,10 @@ pub fn display(app: &mut AppData, ctx: &eframe::egui::Context, frame: &mut efram
         });
 
         if ui.button("Save").clicked() {
-            //sqve
+            app.add_user();
 
+            app.switch_to_user_selection();
+            return;
         }
     });
 }

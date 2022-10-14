@@ -51,7 +51,9 @@ impl AppData {
     }
 
     pub fn add_user(&mut self) {
-        self.users_list.users.push(self.new_user)
+        self.users_list.users.push(self.new_user.clone());
+        export_json(USERS_LIST_PATH, &self.users_list);
+        self.new_user = User::new();
     }
 
     pub fn switch_to_user_selection(&mut self) {

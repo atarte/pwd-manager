@@ -15,7 +15,7 @@ impl Init for UsersList {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct User {
     pub name: String,
     pub password: String,
@@ -33,12 +33,3 @@ impl Init for User {
     }
 }
 
-impl Copy for User {
-    
-}
-
-impl Clone for User {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
