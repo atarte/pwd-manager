@@ -1,6 +1,6 @@
 // use crate::panels:user_selection::{UserSelection, USER_LIST_PATH};
-use crate::views::user_selection;
-use crate::views::user_creation;
+use crate::views::users_selection::UsersSelection;
+use crate::views::user_creation::UserCreation;
 use crate::models::{Init, export_json, import_json};
 use crate::models::user::{User, UsersList};
 
@@ -9,9 +9,11 @@ const USERS_LIST_PATH: &str = "./data/users_list.json";
 
 #[derive(Debug)]
 pub struct AppData {
-    state: AppState,
-    users_list: UsersList,
-    new_user: User,
+    views: ViewsData,
+    // state: appstate,
+    data: Data,
+    // users_list: UsersList,
+    // new_user: User,
 }
 
 #[derive(Debug)]
@@ -22,20 +24,42 @@ enum AppState {
     Home,
 }
 
+#[derive(Debug)]
+pub struct Data {
+    users_list: UsersList,
+    new_user: User,
+    state: AppState,
+}
+
+#[derive(Debug)]
+struct ViewsData {
+    users_selection: UsersSelection,
+    user_creation: UserCreation,
+}
+
 impl Default for AppData {
     fn default() -> Self {
         let users_selected: UsersList = import_json(USERS_LIST_PATH);
         let user_created: User = User::new();
 
         Self {
-            state: AppState::UserSelection,
-            users_list: users_selected,
-            new_user: user_created,
+            views: ViewsData {
+                users_selection: UsersSelection::new(),
+                user_creation: UserCreation::new(),
+            },
+            // state: AppState::UserSelection,
+            data: Data {
+                state: AppState::UserSelection,
+                users_list: users_selected,
+                new_user: user_created,
+            }
+            // users_list: users_selected,
+            // new_user: user_created,
         }
     }
 }
 
-impl AppData {
+impl Data {
     pub fn get_users(&self) -> Result<&UsersList, String> {
         match self.state {
             AppState::UserSelection => Ok(&self.users_list),
@@ -79,9 +103,9 @@ impl AppData {
 impl eframe::App for AppData {
     fn update(&mut self, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
 
-        match self.state {
-            AppState::UserSelection => user_selection::display(self, ctx, frame),
-            AppState::UserCreation => user_creation::display(self, ctx, frame),
+        match self.data.state {
+            AppState::UserSelection => self.views.users_selection.display(&mut self.data, ctx, frame),
+            AppState::UserCreation => self.views.user_creation.display(&mut self.data, ctx, frame),
             AppState::Login => todo!(),
             AppState::Home => todo!(),
         }
