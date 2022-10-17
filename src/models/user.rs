@@ -18,6 +18,7 @@ impl Init for UsersList {
     }
 }
 
+// Clone
 #[derive(Debug, Clone, Hash, Deserialize, Serialize)]
 pub struct User {
     pub name: String,

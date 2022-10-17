@@ -19,11 +19,11 @@ impl UsersSelection {
         }
     }
 
-    pub fn display(&mut self, app: &mut Data, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
+    pub fn display(&mut self, data: &mut Data, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("selecting user");
 
-            for user in app.get_users().unwrap().users.iter() {
+            for user in data.get_users().unwrap().users.iter() {
                 if ui.button(&user.name).clicked() {
 
                 }
@@ -31,7 +31,7 @@ impl UsersSelection {
 
              
             if ui.button("create_user").clicked() {
-                app.switch_to_user_creation();
+                data.switch_to_user_creation();
                 return;
             }
         });

@@ -9,8 +9,8 @@ use crate::models::user::User;
 
 #[derive(Debug)]
 pub struct UserCreation {
-    name: String,
-    pwd: String
+    pub name: String,
+    pub pwd: String
 }
 
 impl UserCreation {
@@ -21,34 +21,33 @@ impl UserCreation {
         }
     }
 
-    pub fn display(&mut self, app: &mut Data, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
+    pub fn display(&mut self, data: &mut Data, ctx: &eframe::egui::Context, frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("creating user");
 
             if ui.button("<- Back").clicked() {
-                app.switch_to_user_selection();
+                data.switch_to_user_selection();
                 return;
             }
 
-            let new_user: &mut User = app.get_new_user().unwrap();
+            // let new_user: &mut User = app.get_new_user().unwrap();
 
             ui.horizontal(|ui| {
                 ui.label("username: ");
-                ui.text_edit_singleline(&mut new_user.name);
+                ui.text_edit_singleline(&mut self.name);
             });
 
             ui.horizontal(|ui| {
-                let mut pwd_string: String = String::new();
                 ui.label("password: ");
-                ui.text_edit_singleline(&mut pwd_string);
+                ui.text_edit_singleline(&mut self.pwd);
                 
-                new_user.hash_password(pwd_string); 
+                // new_user.hash_password(pwd); 
             });
 
             if ui.button("Save").clicked() {
-                app.add_user();
+                data.add_user(self);
 
-                app.switch_to_user_selection();
+                data.switch_to_user_selection();
                 return;
             }
         });

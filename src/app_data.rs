@@ -27,7 +27,7 @@ enum AppState {
 #[derive(Debug)]
 pub struct Data {
     users_list: UsersList,
-    new_user: User,
+    user: User,
     state: AppState,
 }
 
@@ -51,7 +51,7 @@ impl Default for AppData {
             data: Data {
                 state: AppState::UserSelection,
                 users_list: users_selected,
-                new_user: user_created,
+                user: user_created,
             }
             // users_list: users_selected,
             // new_user: user_created,
@@ -67,18 +67,22 @@ impl Data {
         }
     }
 
-    pub fn get_new_user(&mut self) -> Result<&mut User, String> {
+    pub fn get_user(&mut self) -> Result<&mut User, String> {
         match self.state {
-            AppState::UserCreation => Ok(&mut self.new_user),
+            AppState::UserCreation => Ok(&mut self.user),
             _ => Err(format!("State 'UserCreation' expect, buts state '{:?}' encounter", self.state)),
         }
     }
 
-    pub fn add_user(&mut self) {
-        self.users_list.users.push(self.new_user.clone());
+    pub fn add_user(&mut self, new_user: &UserCreation) {
+        // self.users_list.users.push(self.user.clone());
+        self.user.name = new_user.name.clone();
+        self.user.hash_password(new_user.pwd.clone());
+
+        self.users_list.users.push(self.user.clone()); 
         export_json(USERS_LIST_PATH, &self.users_list);
         
-        self.new_user = User::new();
+        self.user = User::new();
     }
 
     pub fn switch_to_user_selection(&mut self) {
@@ -88,7 +92,7 @@ impl Data {
 
     pub fn switch_to_user_creation(&mut self) {
         self.state = AppState::UserCreation;
-        self.new_user = User::new();
+        self.user = User::new();
     }
 
     pub fn switch_to_login(&mut self) {
